@@ -94,7 +94,7 @@ class _AuthScreenState extends State<AuthScreen> {
           children: [
             Stack(
               children: [
-                // AuthForm(_handleSubmit),
+                AuthForm(_handleSubmit),
                 if (_isLoading)
                   Positioned.fill(
                     child: Container(
