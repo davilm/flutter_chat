@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_chat/views/auth_screen.dart';
+import 'package:flutter_chat/views/chat_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +50,16 @@ class _AppState extends State<App> {
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
-            return AuthScreen();
+            return StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, userSnapshot) {
+                if (userSnapshot.hasData) {
+                  return ChatScreen();
+                } else {
+                  return AuthScreen();
+                }
+              },
+            );
           }
           return Center(
             child: Container(child: CircularProgressIndicator()),
