@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/views/widgets/messages.dart';
+import 'package:flutter_chat/views/widgets/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
@@ -38,33 +40,13 @@ class ChatScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('chat').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-            // return MyAwesomeApp();
-          }
-
-          final docs = snapshot.data.docs;
-          return ListView.builder(
-            itemCount: docs.length,
-            itemBuilder: (context, index) => Container(
-              padding: EdgeInsets.all(10),
-              child: Text(docs[index]['text']),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          FirebaseFirestore.instance.collection('chat').add({
-            'text': 'Adicionado manualmente!',
-          });
-        },
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(child: Messages()),
+            NewMessage(),
+          ],
+        ),
       ),
     );
   }
