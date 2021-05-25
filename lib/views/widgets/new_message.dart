@@ -24,6 +24,7 @@ class _NewMessageState extends State<NewMessage> {
       'userId': user.uid,
     });
 
+    _enteredMessage = '';
     _controller.clear();
   }
 

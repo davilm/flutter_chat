@@ -39,7 +39,7 @@ class MessageBubble extends StatelessWidget {
           child: Text(
             message,
             style: TextStyle(
-              color: Theme.of(context).accentTextTheme.headline1.color,
+              color: Colors.black,
             ),
           ),
         ),
