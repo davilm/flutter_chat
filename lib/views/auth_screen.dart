@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/models/auth_data.dart';
 import 'package:flutter_chat/views/widgets/auth_form.dart';
@@ -30,6 +31,13 @@ class _AuthScreenState extends State<AuthScreen> {
       } else {
         userCredential = await _auth.createUserWithEmailAndPassword(
             email: authData.email, password: authData.password);
+
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('user_images')
+            .child(userCredential.user.uid + '.jpg');
+
+        await ref.putFile(authData.image);
 
         final userData = {
           'name': authData.name,
