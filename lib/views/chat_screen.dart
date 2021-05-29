@@ -23,7 +23,9 @@ class ChatScreen extends StatelessWidget {
                   child: Container(
                     child: Row(
                       children: [
-                        Icon(Icons.exit_to_app),
+                        IconButton(
+                          icon: Icon(Icons.exit_to_app),
+                        ),
                         SizedBox(width: 8),
                         Text('Sair'),
                       ],
